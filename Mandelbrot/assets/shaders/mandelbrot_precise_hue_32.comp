@@ -1,0 +1,40 @@
+#version 430 core
+#extension GL_ARB_gpu_shader_fp64 : require
+
+layout (local_size_x = 8, local_size_y = 4, local_size_z = 1) in;
+
+layout(rgba32f, binding = 0) uniform image2D imgOutput;
+
+uniform double scaleFactor;
+uniform dvec2 translation;
+uniform dvec2 invRes;
+uniform float aspectRatio;
+uniform uint maxIter;
+
+void main() {
+    const ivec2 size = imageSize(imgOutput);
+    vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
+    ivec2 texelCoord = ivec2(gl_GlobalInvocationID.xy);
+
+    dvec2 c;
+    c.x = double(texelCoord.x * invRes.x + aspectRatio) * scaleFactor + translation.x;
+    c.y = double(texelCoord.y * invRes.y - 1) * scaleFactor + translation.y;
+     
+    dvec2 z = dvec2(0.0, 0.0);
+    #pragma unroll
+    for (int i = 0; i < maxIter; ++i) {
+        double real = z.x * z.x - z.y * z.y + c.x;
+        double imag = 2.0 * z.x * z.y + c.y;
+
+        z = dvec2(real, imag);
+        if (z.x * z.x + z.y * z.y > 4.0) {
+            float t = float(i) / float(maxIter);
+    	    float hue = 0.95 + 10.0 * t;
+    	    vec3 rgb = vec3(0.5 + 0.5 * cos(6.28318 * (hue + vec3(0.0, 0.33, 0.67))));
+    	    color = vec4(rgb, t);
+            break;
+        } 
+    }
+	
+    imageStore(imgOutput, texelCoord, color);
+}
