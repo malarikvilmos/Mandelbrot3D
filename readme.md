@@ -2,7 +2,7 @@
 
 Mandelbrot-Set Visualizer Capable of Rendering in both 2D and 3D
 
-![screenshot](screenshot1.png)
-![screenshot](screenshot2.png)
-![screenshot](screenshot3.png)
-![screenshot](screenshot4.png)
+![screenshot](screenshots/screenshot1.png)
+![screenshot](screenshots/screenshot2.png)
+![screenshot](screenshots/screenshot3.png)
+![screenshot](screenshots/screenshot4.png)
