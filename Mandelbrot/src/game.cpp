@@ -159,38 +159,4 @@ void Game::DebugStateInput()
             translate.y -= Benchmark::deltaTime / zoomFactor;
         }
     }
-
-    
-
-    if (this->mouse.heldRight) {
-        SDL_SetRelativeMouseMode(SDL_TRUE);
-        isMouseGrabbed = true;
-        SDL_WarpMouseInWindow(this->window, Config::width / 2, Config::height / 2);
-
-        if (this->keysHeld.W) {
-            Camera::MoveFreeLook(Direction::FORWARD, this->keysHeld.Shift);
-        }
-        if (this->keysHeld.S) {
-            Camera::MoveFreeLook(Direction::BACKWARDS, this->keysHeld.Shift);
-        }
-        if (this->keysHeld.A) {
-            Camera::MoveFreeLook(Direction::LEFT, this->keysHeld.Shift);
-        }
-        if (this->keysHeld.D) {
-            Camera::MoveFreeLook(Direction::RIGHT, this->keysHeld.Shift);
-        }
-        if (this->keysHeld.Space) {
-            Camera::MoveFreeLook(Direction::UP, this->keysHeld.Shift);
-        }
-        if (this->keysHeld.Ctrl) {
-            Camera::MoveFreeLook(Direction::DOWN, this->keysHeld.Shift);
-        }
-
-        Camera::Rotate(this->mouse.x, this->mouse.y);
-        Camera::Update();
-    }
-    else {
-        SDL_SetRelativeMouseMode(SDL_FALSE);
-        isMouseGrabbed = false;
-    }
 }

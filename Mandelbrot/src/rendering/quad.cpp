@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../tools/config.h"
 #include "../tools/math.h"
+#include <cstring>
 
 void Quad::Init()
 {

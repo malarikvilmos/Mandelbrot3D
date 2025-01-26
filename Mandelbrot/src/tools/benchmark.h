@@ -8,7 +8,7 @@ public:
 	inline static int32_t framerate = 0;
 	inline static float frametime = 0.0f;
 
-	inline static std::chrono::milliseconds duration = duration_cast<std::chrono::milliseconds>
+	inline static std::chrono::milliseconds duration = std::chrono::duration_cast<std::chrono::milliseconds>
 		(std::chrono::high_resolution_clock::now() - std::chrono::high_resolution_clock::now());
 
 	static void DoBenchmark();

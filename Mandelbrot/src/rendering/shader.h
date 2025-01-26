@@ -24,14 +24,3 @@ private:
 	inline static uint32_t currentlyBoundID = 0;
 };
 
-class ShaderLoader
-{
-public:
-	inline static std::map<const std::string, std::string> shaders = {};
-
-	static void Load() noexcept;
-
-private:
-	ShaderLoader();
-	static void Read(const std::filesystem::path& path) noexcept;
-};

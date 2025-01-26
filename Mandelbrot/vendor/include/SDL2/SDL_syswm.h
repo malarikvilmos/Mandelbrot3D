@@ -45,6 +45,7 @@ struct SDL_SysWMinfo;
 
 #if !defined(SDL_PROTOTYPES_ONLY)
 
+#undef SDL_VIDEO_DRIVER_WINDOWS // Line added so that we can compile on Linux, does not seem to affect Windows build.
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN

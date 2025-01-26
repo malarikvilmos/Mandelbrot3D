@@ -96,19 +96,3 @@ void Shader::SetUniformVec3Array(glm::vec3& uniform, uint32_t count, const char*
     int location = glGetUniformLocation(ID, name);
     glUniform3fv(location, count, glm::value_ptr(uniform));
 }
-
-void ShaderLoader::Load() noexcept
-{
-    constexpr const char* const path = "shaders";
-    for (const auto& entry : std::filesystem::directory_iterator(path)) {
-        Read(entry.path());
-    }
-}
-
-void ShaderLoader::Read(const std::filesystem::path& path) noexcept
-{
-    std::ifstream file(path.string());
-    std::stringstream ss;
-    ss << file.rdbuf();
-    shaders[path.filename().string()] = ss.str();
-}

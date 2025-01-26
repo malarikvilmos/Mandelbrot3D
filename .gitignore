@@ -1,5 +1,11 @@
 .vs/
 x64/
+bin/
 update.bat
+Mandelbrot.sln
 Mandelbrot/saved/
 Mandelbrot/x64/
+Mandelbrot/obj/
+Mandelbrot/Mandelbrot.vcxproj
+Mandelbrot/Mandelbrot.vcxproj.filters
+Mandelbrot/Mandelbrot.vcxproj.user

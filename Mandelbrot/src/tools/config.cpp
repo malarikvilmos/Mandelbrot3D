@@ -6,27 +6,27 @@
 #include <iostream>
 #include "../datatypes/precision.h"
 
-
 int32_t Config::Read()
 {
+    Config::width = 800;
+    Config::height = 600;
+    Config::vsync = 1;
+    Config::fullscreen = 0;
+    Config::precision = Precision::Automatic;
+    Config::sensitivity = 0.5f;
+
     const char* filepath = "config.ini";
     FILE* file = fopen(filepath, "r");
 
     if (file == nullptr) {
         perror("Error opening config file for read.");
-        Config::width = 800;
-        Config::height = 600;
-        Config::vsync = 1;
-        Config::fullscreen = 0;
-        Config::precision = Precision::Automatic;
-        Config::sensitivity = 0.5f;
         Config::Save();
         return 1;
     }
 
-    char buffer[320];
+    char buffer[1024];
     char* token = nullptr;
-    while (!feof(file) && fgets(buffer, 300, file)) {
+    while (!feof(file) && fgets(buffer, 512, file)) {
         token = strtok(buffer, "= ");
         if (strcmp(token, "width") == 0) {
             token = strtok(nullptr, "= ");
@@ -48,11 +48,6 @@ int32_t Config::Read()
             int32_t parsedValue = atoi(token);
             Config::vsync = parsedValue != 0 ? parsedValue : 0;
         }
-        else if (strcmp(token, "sensitivity") == 0) {
-            token = strtok(nullptr, "= ");
-            float parsedValue = atof(token);
-            Config::sensitivity = parsedValue != 0 ? parsedValue : 0.5f;
-        }
     }
 
     fclose(file);
@@ -69,30 +64,20 @@ int32_t Config::Save()
         return 1;
     }
 
-    char vbuffer[120];
-    _itoa(Config::width, vbuffer, 10);
     fputs("width = ", file);
-    fputs(vbuffer, file);
+    fputs(std::to_string(Config::width).c_str(), file);
     fputs("\n", file);
 
-    _itoa(Config::height, vbuffer, 10);
     fputs("height = ", file);
-    fputs(vbuffer, file);
+    fputs(std::to_string(Config::height).c_str(), file);
     fputs("\n", file);
 
-    _itoa(Config::fullscreen, vbuffer, 10);
     fputs("fullscreen = ", file);
-    fputs(vbuffer, file);
+    fputs(std::to_string(Config::fullscreen).c_str(), file);
     fputs("\n", file);
 
-    _itoa(Config::vsync, vbuffer, 10);
     fputs("vsync = ", file);
-    fputs(vbuffer, file);
-    fputs("\n", file);
-
-    snprintf(vbuffer, sizeof(vbuffer), "%.3g", Config::sensitivity);
-    fputs("sensitivity = ", file);
-    fputs(vbuffer, file);
+    fputs(std::to_string(Config::vsync).c_str(), file);
     fputs("\n", file);
 
     fclose(file);

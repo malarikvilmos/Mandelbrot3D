@@ -41,6 +41,11 @@ project "Mandelbrot"
         "%{prj.name}/vendor/lib"
     }
 
+    postbuildcommands
+    {
+        ("{COPYFILE} assets.dat %{cfg.targetdir}/")
+    }
+
     filter "system:windows"
         cppdialect "C++20"
         staticruntime "On"
@@ -54,6 +59,19 @@ project "Mandelbrot"
             "Setupapi"
         }
 
+    filter "system:linux"
+        cppdialect "C++20"
+        staticruntime "On"
+        kind "ConsoleApp"
+        links
+        {
+            "SDL2", "SDL2main",
+            "m",
+            "pthread",
+            "dl",
+            "GL",
+        }
+
     filter "configurations:Debug"
         kind "ConsoleApp"
         defines {"_DEBUG", "_CONSOLE", "_CRT_SECURE_NO_WARNINGS"}
@@ -65,6 +83,8 @@ project "Mandelbrot"
         defines {"_NDEBUG", "_CONSOLE", "_CRT_SECURE_NO_WARNINGS"}
         runtime "Release"
         optimize "Full"
+
+    
 
     filter {}
 

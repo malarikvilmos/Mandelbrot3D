@@ -27,7 +27,7 @@ void Benchmark::MeasureFrametimeBegin()
 void Benchmark::MeasureFrametimeEnd()
 {
 	frameEnd = std::chrono::steady_clock::now();
-	frametime = duration_cast<std::chrono::microseconds>(frameEnd - frameStart).count() * 0.001f;
+	frametime = std::chrono::duration_cast<std::chrono::microseconds>(frameEnd - frameStart).count() * 0.001f;
 	leftoverFrametime = targetFrametime - frametime;
 }
 
@@ -39,7 +39,6 @@ void Benchmark::MeasureBegin()
 float Benchmark::MeasureEnd()
 {
 	t2 = std::chrono::steady_clock::now();
-	duration = duration_cast<std::chrono::milliseconds>(t2 - t1);
+	duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 	return (float)duration.count();
 }
-

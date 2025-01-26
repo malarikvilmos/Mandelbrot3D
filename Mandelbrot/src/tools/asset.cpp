@@ -8,7 +8,7 @@ void AssetManager::Load(const char* path)
 	std::string line;
 	for (;;) {
 		std::getline(asset_file, line, (char)'&');
-		if (line == "@META_END") break;
+		if (line.find("@META_END") != std::string::npos) break;
 		Asset asset;
 		std::string filepath = strtok(line.data(), "$");
 		asset.begin = strtoul(strtok(nullptr, "$"), nullptr, 10);

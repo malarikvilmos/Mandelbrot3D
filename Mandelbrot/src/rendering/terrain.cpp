@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "../application.h"
 #include "../tools/config.h"
+#include <cstring>
 
 Terrain::Terrain(uint32_t width, uint32_t height)
 {
