@@ -1,6 +1,7 @@
 #include "asset.h"
 #include <fstream>
 #include <cassert>
+#include <cstring>
 
 void AssetManager::Load(const char* path)
 {
